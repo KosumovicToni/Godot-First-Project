@@ -1,7 +1,7 @@
 extends KinematicBody2D
 
 onready var _animated_sprite = $AnimatedSprite
-export (int) var speed = 2500
+export (int) var speed = 5500
 onready var target = position
 var velocity = Vector2()
 onready var timer = $Timer	#the attack timer
@@ -9,20 +9,21 @@ var _attack_done = true 	#a boolean variable to know if i am attacking
 var _direction = 1 # 1 = down, -1 = up ,  2 = left , -2 = right 
 
 func _get_animation(target):	#Based on the distance of the x and y Vecotors the player 'Takes' a position (up,down,right,left)
-	if (position.x - target.x) < -50 and (position.y - target.y)  < 150:
+	if (position.x - target.x) < -50 and (position.y - target.y)  < 350:
 		_animated_sprite.flip_h = false
 		_animated_sprite.play('right')
 		_direction = 2
 	elif (position.x - target.x) < 100 and (position.y - target.y) < -50 :
 		_animated_sprite.play('down')
 		_direction = 1 
-	elif (position.x - target.x) > 0 and (position.y - target.y) < 150 :
+	elif (position.x - target.x) > 0 and (position.y - target.y) < 350 :
 		_animated_sprite.flip_h = true
 		_animated_sprite.play('right')
 		_direction = -2
 	else: 
 		_animated_sprite.play('up')
 		_direction = -1
+		
 #	print(position.x - target.x)
 #	print(position.y - target.y)
 
