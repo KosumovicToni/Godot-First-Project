@@ -1,12 +1,22 @@
 extends Node2D
 
-# Called when the node enters the scene tree for the first time.
-#func _ready():
-#	pass # Replace with function body.
+
+var random = RandomNumberGenerator.new()
+onready var timer = $Timer	
+var enemyScene = preload("Slime.tscn")
 
 func _input(event):
 	if event.is_action_pressed('close'):
 		get_tree().quit()
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-#	pass
+
+func _process(delta):
+	if timer.is_stopped():
+		timer.start()
+		
+func _on_Timer_timeout():
+	var enemy = enemyScene.instance()
+	random.randomize()
+	var x = random.randf_range(0,960)
+	var y = random.randf_range(0,600)
+	enemy.position = Vector2(x,y)
+	get_tree().current_scene.add_child(enemy)

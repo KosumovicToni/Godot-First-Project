@@ -15,3 +15,7 @@ func _ready():
 
 func _on_Area2D_body_entered(body):
 	_animated_sprite.hide()
+
+
+func _on_KinematicBody2D_attacking():
+	_animated_sprite.hide()

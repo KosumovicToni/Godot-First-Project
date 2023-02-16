@@ -292,11 +292,10 @@ animations = [ {
 } ]
 
 [sub_resource type="CapsuleShape2D" id=55]
-radius = 8.5
+radius = 5.5
 height = 3.0
 
 [node name="Player" type="KinematicBody2D"]
-scale = Vector2( 2, 2 )
 script = ExtResource( 1 )
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]

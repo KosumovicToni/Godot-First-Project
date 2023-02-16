@@ -7,6 +7,8 @@ var velocity = Vector2()
 onready var timer = $Timer	#the attack timer
 var _attack_done = true 	#a boolean variable to know if i am attacking
 var _direction = 1 # 1 = down, -1 = up ,  2 = left , -2 = right 
+signal attacking
+
 
 func _get_animation(target):	#Based on the distance of the x and y Vecotors the player 'Takes' a position (up,down,right,left)
 	if (position.x - target.x) < -50 and (position.y - target.y)  < 350:
@@ -23,7 +25,6 @@ func _get_animation(target):	#Based on the distance of the x and y Vecotors the 
 	else: 
 		_animated_sprite.play('up')
 		_direction = -1
-		
 #	print(position.x - target.x)
 #	print(position.y - target.y)
 
@@ -33,6 +34,7 @@ func _input(event):
 		target = get_global_mouse_position()
 		_get_animation(target)
 	elif event.is_action_pressed("attack"):
+		emit_signal('attacking')
 		target = position
 		if  _direction == 1:
 			_animated_sprite.play('attack_down')
@@ -52,7 +54,9 @@ func _physics_process(delta):
 	if position.distance_to(target) > 5:
 		velocity = move_and_slide(velocity * delta)
 	elif _attack_done:
-		_animated_sprite.play('idle_down')
+		if _direction ==  -1 :
+			  _animated_sprite.play('idle_up') 
+		else :_animated_sprite.play('idle_down')
 
 
 func _on_Timer_timeout(): #set the state attack done 
